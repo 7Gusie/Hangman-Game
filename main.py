@@ -1,4 +1,4 @@
-from assets import cleanScreen, timeWait, writeScreen, playersNames, wordTips, infoWord, options
+from hangman_assets import cleanScreen, timeWait, writeScreen, playersNames, wordTips, infoWord, options
 
 cleanScreen()
 
