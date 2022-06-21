@@ -1,4 +1,5 @@
 import os, time
+from termcolor import colored
 from string import ascii_letters
 
 valid_letters = ascii_letters + "ÁÉÍÓÚ' 'ÃÕÇ" + "áéíóú' 'ãõç"
@@ -9,8 +10,8 @@ wordtips = []
 
 letter_attempts = []
 
-write_players = "INFORME O NOME DOS PARTICIPANTES:\nDICA: OS NOMES NÃO PODEM CONTER NÚMEROS!"
-write_wordtips = "INFORME A PALAVRA CHAVE + 3 DICAS:\nDICA: A PALAVRA CHAVE E AS DICAS NÃO PODEM CONTER NÚMEROS!"
+write_players = colored("INFORME O NOME DOS PARTICIPANTES:\nDICA: OS NOMES NÃO PODEM CONTER NÚMEROS!", "green")
+write_wordtips = colored("INFORME A PALAVRA CHAVE + 3 DICAS:\nDICA: A PALAVRA CHAVE E AS DICAS NÃO PODEM CONTER NÚMEROS!", "green")
 
 def cleanScreen():
     os.system("cls")
@@ -150,13 +151,13 @@ def playAgain():
 def endGame(attempts, used_tips):
     if attempts == 6:
         cleanScreen()
-        writeScreen(f'{players[0]} ganhou!\nA Palavra era: {wordtips[0]}\nErros: {attempts}\nDicas utilizadas: {used_tips - 1}')
+        writeScreen(colored(f'{players[0]} ganhou!\nA Palavra era: {wordtips[0]}\nErros: {attempts}\nDicas utilizadas: {used_tips - 1}', "green"))
         history(attempts)
         playAgain()
 
     elif ''.join(hidden_word) == wordtips[0]:
         cleanScreen()
-        writeScreen(f'{players[1]} ganhou!\nA Palavra era: {wordtips[0]}\nErros: {attempts}\nDicas utilizadas: {used_tips - 1}')
+        writeScreen(colored(f'{players[1]} ganhou!\nA Palavra era: {wordtips[0]}\nErros: {attempts}\nDicas utilizadas: {used_tips - 1}', "green"))
         history(attempts)
         playAgain()
 
@@ -195,7 +196,7 @@ def option1(attempts, used_tips):
 
             elif try_letter == wordtips[0]:
                 cleanScreen()
-                writeScreen(f'{players[1]} ganhou!\nA Palavra era: {wordtips[0]}\nErros: {attempts}\nDicas utilizadas: {used_tips - 1}')
+                writeScreen(colored(f'{players[1]} ganhou!\nA Palavra era: {wordtips[0]}\nErros: {attempts}\nDicas utilizadas: {used_tips - 1}', "green"))
                 history(attempts)
                 playAgain()
         except ValueError:
@@ -204,7 +205,7 @@ def option1(attempts, used_tips):
     return attempts
 
 def option2(used_tips, attempts):
-    writeScreen(f'Dica: {wordtips[used_tips]}')
+    writeScreen(colored(f'Dica: {wordtips[used_tips]}', "green"))
 
     return option1(attempts, used_tips)
 
@@ -216,12 +217,12 @@ def options():
         endGame(attempts, used_tips)
 
         if used_tips == 4:
-            writeScreen("VOCÊ NÃO POSSUI MAIS DICAS DISPONÍVEIS!")
+            writeScreen(colored("VOCÊ NÃO POSSUI MAIS DICAS DISPONÍVEIS!", "red"))
             wordParameters(attempts)
             writeScreen("\nSELECIONE:\n(1) - Jogar\n(3) - Desistir")
         
         else:
-            writeScreen("DICA: VOCÊ POSSUI SOMENTE 3 DICAS!")
+            writeScreen(colored("DICA: VOCÊ POSSUI SOMENTE 3 DICAS!", "green"))
             wordParameters(attempts)
             writeScreen("\nSELECIONE:\n(1) - Jogar\n(2) - Solicitar Dica\n(3) - Desistir")
         try:
@@ -237,7 +238,7 @@ def options():
 
             elif option == "3":
                 cleanScreen()
-                writeScreen(f'{players[1]} desistiu!\nA Palavra era: {wordtips[0]}')
+                writeScreen(colored(f'{players[1]} desistiu!\nA Palavra era: {wordtips[0]}', "red"))
                 history(attempts)
                 playAgain()
         except ValueError:
